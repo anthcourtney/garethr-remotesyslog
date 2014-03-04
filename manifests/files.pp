@@ -1,6 +1,8 @@
-define remotesyslog::files {
+define remotesyslog::files (
   $logs = []
 ) {
+
+  include remotesyslog
 
   concat::fragment { "remotesyslog_files_${title}":
     target => '/etc/log_files.yml',
