@@ -12,7 +12,19 @@ class remotesyslog::config {
     target => '/lib/init/upstart-job',
   }
 
-  file { '/etc/log_files.yml':
-    content => template('remotesyslog/etc/log_files.yml.erb')
+  concat { "/etc/log_files.yml" : }
+
+  # files fragment
+  concat::fragment{ 'remotesyslog_log_files_header':
+    target => "/etc/log_files.yml",
+    content => "files:"
   }
+
+  # cert/destination fragment
+  concat::fragment{ 'remotesyslog_log_files_footer':
+    target => "/etc/log_files.yml",
+    content => template("etc/log_files_footer.yml.erb"),
+    order => 99
+  }
+
 }
