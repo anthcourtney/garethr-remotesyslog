@@ -17,7 +17,8 @@ class remotesyslog::config {
   # files fragment
   concat::fragment{ 'remotesyslog_log_files_header':
     target => "/etc/log_files.yml",
-    content => "files:"
+    content => "files:\n",
+    order => 01
   }
 
   # cert/destination fragment
